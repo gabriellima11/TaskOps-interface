@@ -20,7 +20,7 @@ export const ViewTask = ({ filterCompany }) => {
 
   const deleteTask = async (id) => {
     try {
-      await api.delete(`http://tasks-ops-backend.vercel.app/api/delete-task/${id}`);
+      await api.delete(`https://tasks-ops-backend.vercel.app/api/delete-task/${id}`);
       alert("Chamado deletado com sucesso");
       setTask(prevTasks => prevTasks.filter(task => task._id !== id));
     } catch (error) {

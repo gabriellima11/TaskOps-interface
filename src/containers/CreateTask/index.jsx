@@ -33,7 +33,7 @@ export const CreateTask = () => {
       company: companyRef.current.value
     };
     try {
-      await api.post("http://tasks-ops-backend.vercel.app/api/create-task", taskData);
+      await api.post("https://tasks-ops-backend.vercel.app/api/create-task", taskData);
       alert("Chamado criado com sucesso!");
 
       titleRef.current.value = "";
