@@ -2,9 +2,27 @@ import { Container, ContainerTask, Info, Button, IconsDiv, Links } from "./style
 import { useState, useEffect } from "react";
 import { api } from '../../services/api';
 import { FaTrashAlt, FaPencilAlt } from "react-icons/fa";
+import {DeleteMenu} from '../../components/DeleteMenu'
 
 export const ViewTask = ({ filterCompany }) => {
   const [task, setTask] = useState([]);
+
+  //Menu delete
+  const [isDeleteMenuOpen, setIsDeleteMenuOpen] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState(null);
+
+  const openDeleteMenu = (taskId) => {
+    setTaskToDelete(taskId);
+    setIsDeleteMenuOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (taskToDelete) {
+      await deleteTask(taskToDelete);
+      setIsDeleteMenuOpen(false);
+      setTaskToDelete(null);
+    }
+  };
 
   useEffect(() => {
     async function loadTasks() {
@@ -29,9 +47,10 @@ export const ViewTask = ({ filterCompany }) => {
     }
   };
 
-  const filteredTasks = filterCompany
-    ? task.filter(t => t.company === filterCompany)
-    : task;
+  const filteredTasks =
+    filterCompany && filterCompany !== "Todos"
+      ? task.filter(t => t.company === filterCompany)
+      : task;
 
   return (
     <Container>
@@ -46,7 +65,17 @@ export const ViewTask = ({ filterCompany }) => {
               <p>Empresa: {item.company}</p>
             </Info>
             <IconsDiv>
-              <Button onClick={() => deleteTask(item._id)}><FaTrashAlt size={20} /></Button>
+
+              <Button onClick={() => openDeleteMenu(item._id)}>
+                <FaTrashAlt size={20} />
+              </Button>
+              {isDeleteMenuOpen && (
+                <DeleteMenu
+                  onConfirm={confirmDelete}
+                  onCancel={() => setIsDeleteMenuOpen(false)}
+                />
+              )}
+              
               <Links to={"/edit-task"} state={{ task: item }}><FaPencilAlt size={20} /></Links>
             </IconsDiv>
           </ContainerTask>
