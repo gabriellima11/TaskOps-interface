@@ -8,7 +8,7 @@ const globalStyles = createGlobalStyle`
         outline: none;
         font-family: 'Roboto', sans-serif;
     }
-
+    
     button{
         cursor: pointer;
     }

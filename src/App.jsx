@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Header } from './components/Header'
 import { SideMenu } from './components/SideMenu'
 import { Tasks } from './containers/Tasks'
+import { Footer } from './components/Footer'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
       <SideMenu />
       <Tasks filterCompany={selectedCompany}/>
     </div>
+    <Footer/>
     </>
   )
 }
