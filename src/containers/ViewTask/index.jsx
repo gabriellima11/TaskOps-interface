@@ -63,6 +63,8 @@ export const ViewTask = ({ filterCompany }) => {
               <p>Descrição: {item.description}</p>
               <p>Analista: {item.author}</p>
               <p>Empresa: {item.company}</p>
+              <p>Prioridade: {item.priority}</p>
+              <p>Status: {item.status}</p>
             </Info>
             <IconsDiv>
 

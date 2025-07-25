@@ -1,9 +1,14 @@
+//Styles
 import { Container, Input, ContainerInput, TextArea, Select, Button, ContainerSelect } from "./styles";
-import companies from "../../constants/companies";
-import { useRef, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { api } from '../../services/api';
+
+//Constant
 import author from '../../constants/author'
+import companies from "../../constants/companies";
+import status from '../../constants/status'
+import priorities from "../../constants/priority";
+
+import { useRef } from "react";
+import { api } from '../../services/api';
 
 export const CreateTask = () => {
   const titleRef = useRef();
@@ -11,18 +16,8 @@ export const CreateTask = () => {
   const authorRef = useRef();
   const companyRef = useRef();
   const helpdeskRef = useRef();
-
-  const location = useLocation();
-  const task = location.state?.task; // Task vinda da ViewTask
-
-  useEffect(() => {
-    if (task) {
-      titleRef.current.value = task.title;
-      descriptionRef.current.value = task.description;
-      authorRef.current.value = task.author;
-      companyRef.current.value = task.company;
-    }
-  }, [task]);
+  const priorityRef = useRef();
+  const statusRef = useRef();
 
   const createTasks = async () => {
     const taskData = {
@@ -30,24 +25,29 @@ export const CreateTask = () => {
       helpdesk: helpdeskRef.current.value,
       description: descriptionRef.current.value,
       author: authorRef.current.value,
-      company: companyRef.current.value
+      company: companyRef.current.value,
+      priority: priorityRef.current.value,
+      status: statusRef.current.value
     };
     try {
+      console.log(taskData)
       await api.post("https://tasks-ops-backend.vercel.app/api/create-task", taskData);
       alert("Chamado criado com sucesso!");
+
 
       titleRef.current.value = "";
       helpdeskRef.current.value = "";
       descriptionRef.current.value = "";
       authorRef.current.value = "";
       companyRef.current.value = "";
+      priorityRef.current.value = "";
+      statusRef.current.value = "";
+
     } catch (error) {
       console.error("Erro ao criar chamado:", error);
       alert("Erro ao criar chamado");
     }
   };
-
- 
 
   return (
     <Container>
@@ -81,6 +81,24 @@ export const CreateTask = () => {
           {companies.map((item) => (
             <option value={item.value} key={item.value}>
               {item.title}
+            </option>
+          ))}
+        </Select>
+
+        <label>Prioridade:</label>
+        <Select ref={priorityRef}>
+          {priorities.map((item) => (
+            <option value={item} key={item}>
+              {item}
+            </option>
+          ))}
+        </Select>
+
+        <label>Status:</label>
+        <Select ref={statusRef}>
+          {status.map((item) => (
+            <option value={item} key={item}>
+              {item}
             </option>
           ))}
         </Select>
