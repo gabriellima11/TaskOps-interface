@@ -10,7 +10,7 @@ export const Header = ({ onSelectCompany }) => {
 
   return (
     <Container>
-      <a href="/"><Image src={Logo} alt="Logo" /></a>
+      <a href="/task"><Image src={Logo} alt="Logo" /></a>
 
       <ContainerLinks>
         {[...companies.slice(1), { id: "all", value: "Todos" }].map((company) => (

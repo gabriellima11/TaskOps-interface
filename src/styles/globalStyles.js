@@ -12,8 +12,6 @@ const globalStyles = createGlobalStyle`
     button{
         cursor: pointer;
     }
-
-    
 `
 
 export default globalStyles
