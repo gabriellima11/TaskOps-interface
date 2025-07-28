@@ -25,26 +25,28 @@ function App() {
 
   const navigate = useNavigate();
 
-    useEffect(() => {
+
+  useEffect(() => {
+    if (!hideSideMenu) {
         const user = JSON.parse(localStorage.getItem("user"));
         if (!user) {
             navigate("/");
         }
-    }, [navigate]);
-
-  return (
-    <>
-      {!hideSideMenu && <Header onSelectCompany={setSelectedCompany} />}
-      <div style={{ display: 'flex' }}>
-        {!hideSideMenu && <SideMenu />}
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/*" element={<Tasks filterCompany={selectedCompany} />} />
-        </Routes>
-      </div>
-      <ToastContainer />
-    </>
-  )
-}
-export default App
+    }
+}, [hideSideMenu, navigate]);
+    return (
+      <>
+        {!hideSideMenu && <Header onSelectCompany={setSelectedCompany} />}
+        <div style={{ display: 'flex' }}>
+          {!hideSideMenu && <SideMenu />}
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/*" element={<Tasks filterCompany={selectedCompany} />} />
+          </Routes>
+        </div>
+        <ToastContainer />
+      </>
+    )
+  }
+  export default App
