@@ -8,6 +8,7 @@ import { Tasks } from './containers/Tasks'
 import { Login } from './containers/Login'
 import { Register } from './containers/Register'
 import { Users } from './containers/Users'
+import { EditUsers } from './containers/EditUser'
 
 //Toastify
 import { ToastContainer } from 'react-toastify';
@@ -19,7 +20,6 @@ import { useNavigate } from 'react-router-dom'
 
 //Hooks
 import { UserProvider } from './hooks/userContext'
-import { EditUsers } from './containers/Edituser'
 
 function App() {
   const [selectedCompany, setSelectedCompany] = useState(null);
