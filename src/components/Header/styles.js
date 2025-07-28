@@ -57,3 +57,24 @@ export const Image = styled.img`
         width: 50px;
     }
 `
+
+export const DivInfo = styled.div`     
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+`
+
+export const Logout = styled.a`     
+    border: 1px solid red;
+    padding: 0 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: red;
+    width: 50px;
+    transition: 0.3s ease;
+
+    &:hover{
+        background-color: red;
+        color: #fff;
+    }
+`

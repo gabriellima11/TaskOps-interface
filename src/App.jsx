@@ -16,6 +16,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
+//Hooks
+import { UserProvider } from './hooks/userContext'
+
 function App() {
   const [selectedCompany, setSelectedCompany] = useState(null);
   const location = useLocation();
@@ -35,7 +38,7 @@ function App() {
     }
 }, [hideSideMenu, navigate]);
     return (
-      <>
+      <UserProvider>
         {!hideSideMenu && <Header onSelectCompany={setSelectedCompany} />}
         <div style={{ display: 'flex' }}>
           {!hideSideMenu && <SideMenu />}
@@ -46,7 +49,7 @@ function App() {
           </Routes>
         </div>
         <ToastContainer />
-      </>
+      </UserProvider>
     )
   }
   export default App

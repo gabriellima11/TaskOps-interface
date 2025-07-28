@@ -1,18 +1,12 @@
 import { Container, ItemContainer, ListLink } from './styles';
 import { useState, useEffect } from 'react';
+import { useUser } from '../../hooks/userContext';
 
 export const SideMenu = () => {
 
-
-   const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        const storedUser = JSON.parse(localStorage.getItem("user"));
-        if (storedUser) {
-            setUser(storedUser);
-        }
-    }, []);
-
+  const {userInfo:{user}} = useUser()
+  console.log(user)
+  
   return (
     <Container>
       <ItemContainer>

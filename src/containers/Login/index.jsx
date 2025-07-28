@@ -1,25 +1,31 @@
-import { Button } from "../../components/Button"
-import { Container, Content, Header, Body, InputsDiv, Input, Footer } from "./styles"
-import { useForm } from "react-hook-form"
-import { api } from '../../services/api'
-import { toast } from "react-toastify"
-import { useNavigate } from "react-router-dom"
+import { Button } from "../../components/Button";
+import { Container, Content, Header, Body, InputsDiv, Input, Footer } from "./styles";
+import { useForm } from "react-hook-form";
+import { api } from '../../services/api';
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../../hooks/userContext";
 
 export const Login = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const { putUserData } = useUser();
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
         const loadingToast = toast.loading("Realizando login...");
         try {
             const response = await api.post('/login', data);
+
+            putUserData(response.data);
+
             toast.update(loadingToast, { 
                 render: "Login realizado com sucesso!",
                 type: "success",
                 isLoading: false,
                 autoClose: 3000
             });
-            navigate('/task')
+
+            navigate('/task');
         } catch (error) {
             toast.update(loadingToast, { 
                 render: "Falha ao realizar login.",
