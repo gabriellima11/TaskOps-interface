@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom"
 
 //Containers
 import { ViewUsers } from "../ViewUser"
-import { EditUsers } from "../Edituser"
+import { EditUsers } from "../EditUser"
 
 //Styles
 import { Container } from "./styles"
