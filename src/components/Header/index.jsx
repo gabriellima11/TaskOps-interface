@@ -25,7 +25,7 @@ export const Header = ({ onSelectCompany }) => {
       </ContainerLinks>
 
       <DivInfo>
-        <p>Olá, {user.name}!</p>
+        <p>Olá, {user?.name}!</p>
         <Logout href="/" onClick={logout}>Sair</Logout>
       </DivInfo>
     </Container>

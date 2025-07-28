@@ -78,7 +78,7 @@ export const ViewTask = ({ filterCompany }) => {
                 />
               )}
               
-              <Links to={"/edit-task"} state={{ task: item }}><FaPencilAlt size={20} /></Links>
+              <Links to={"/edit-task"} state={{ user: item }}><FaPencilAlt size={20} /></Links>
             </IconsDiv>
           </ContainerTask>
         ))

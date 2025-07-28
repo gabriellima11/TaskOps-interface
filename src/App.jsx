@@ -7,6 +7,7 @@ import { SideMenu } from './components/SideMenu'
 import { Tasks } from './containers/Tasks'
 import { Login } from './containers/Login'
 import { Register } from './containers/Register'
+import { Users } from './containers/Users'
 
 //Toastify
 import { ToastContainer } from 'react-toastify';
@@ -18,6 +19,7 @@ import { useNavigate } from 'react-router-dom'
 
 //Hooks
 import { UserProvider } from './hooks/userContext'
+import { EditUsers } from './containers/Edituser'
 
 function App() {
   const [selectedCompany, setSelectedCompany] = useState(null);
@@ -46,6 +48,8 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/*" element={<Tasks filterCompany={selectedCompany} />} />
+            <Route path="/users" element={<Users/>} />
+             <Route path="/edit-users" element={<EditUsers/>} />
           </Routes>
         </div>
         <ToastContainer />

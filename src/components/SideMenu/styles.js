@@ -13,6 +13,20 @@ export const ItemContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 30px;
+
+    .admin {
+  position: relative;
+  cursor: pointer;
+  padding-right: 20px;
+}
+
+.admin::after {
+  content: '▼';
+  position: absolute;
+  right: 5px;
+  font-size: 0.8em;
+  transition: transform 0.2s ease;
+}
 `
 
 export const ListLink = styled(Link)`
@@ -28,9 +42,17 @@ export const ListLink = styled(Link)`
     font-size: 18px;
     font-weight: 500;
     background-color: #0593FC;
+    border: none;
     cursor: pointer;
 
     &:hover{
         background-color: #077cd6ff;
     }
+    
+`
+
+export const DivAdmin = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 `

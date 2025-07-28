@@ -1,7 +1,10 @@
-const paths = {
+export const pathsTask = {
     Task: '/task',
     CreateTask: '/create-task',
     EditTask: '/edit-task',
 }
 
-export default paths
+export const pathsUser = {
+    User: '/users',
+    EditUser: '/edit-users',
+}
