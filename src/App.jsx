@@ -19,36 +19,24 @@ import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 // Hooks
 import { UserProvider, useUser } from './hooks/userContext';
 
-// Rota protegida para admin
+// Rotas protegidas
 const AdminRoute = ({ children }) => {
   const { userInfo: { user } } = useUser();
-
-  if (!user || !user.admin) {
-    return <Navigate to="/" replace />;
+  if (!user?.admin) {
+    return <Navigate to="/task" replace />;
   }
-
   return children;
 };
 
-// Rota protegida para usuários logados
-const PrivateRoute = ({ children }) => {
-  const { userInfo: { user } } = useUser();
 
-  if (!user) {
-    return <Navigate to="/" replace />;
-  }
-
-  return children;
-};
-
-function App() {
+function AppContent() {
   const [selectedCompany, setSelectedCompany] = useState(null);
   const location = useLocation();
 
   const hideSideMenu = location.pathname === '/';
 
   return (
-    <UserProvider>
+    <>
       {!hideSideMenu && <Header onSelectCompany={setSelectedCompany} />}
       <div style={{ display: 'flex' }}>
         {!hideSideMenu && <SideMenu />}
@@ -65,9 +53,7 @@ function App() {
           <Route
             path="/*"
             element={
-              <PrivateRoute>
                 <Tasks filterCompany={selectedCompany} />
-              </PrivateRoute>
             }
           />
           <Route
@@ -89,6 +75,14 @@ function App() {
         </Routes>
       </div>
       <ToastContainer />
+    </>
+  );
+}
+
+function App() {
+  return (
+    <UserProvider>
+      <AppContent />
     </UserProvider>
   );
 }
