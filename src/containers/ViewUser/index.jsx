@@ -41,7 +41,7 @@ export const ViewUsers = () => {
 
   const deleteUser = async (id) => {
     try {
-      await api.delete(`http://localhost:3000/api/delete-user/${id}`);
+      await api.delete(`/delete-user/${id}`);
       alert("Chamado deletado com sucesso");
       setUsers(prevUsers => prevUsers.filter(users => users._id !== id));
     } catch (error) {
