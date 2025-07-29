@@ -3,11 +3,9 @@ import { useForm } from "react-hook-form";
 import { api } from '../../services/api';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 export const Register = () => {
   const navigate = useNavigate();
-  const [isAdmin, setIsAdmin] = useState(false);
 
   const {
     register,
@@ -25,8 +23,6 @@ export const Register = () => {
   const onSubmit = async (data) => {
     const loadingToast = toast.loading("Cadastrando usuário...");
     try {
-      // adiciona o valor do checkbox
-      data.admin = isAdmin;
 
       await api.post('/register', data);
 
@@ -45,10 +41,6 @@ export const Register = () => {
         autoClose: 3000
       });
     }
-  };
-
-  const handleCheckboxChange = (e) => {
-    setIsAdmin(e.target.checked);
   };
 
   return (
@@ -72,14 +64,7 @@ export const Register = () => {
           />
           {errors.password && <span>Senha é obrigatória</span>}
         </ContainerInput>
-        <ContainerInput>
-          <label>Admin:</label>
-          <Input
-            type="checkbox"
-            checked={isAdmin}
-            onChange={handleCheckboxChange}
-          />
-        </ContainerInput>
+        
 
         <Button type="submit">Salvar</Button>
       </form>
