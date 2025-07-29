@@ -1,41 +1,48 @@
-import { Container, Input, ContainerInput, TextArea, Select, Button, ContainerSelect } from "./styles";
-import { useRef, useEffect } from "react";
+import { Container, Input, ContainerInput, Button } from "./styles";
+import { useRef, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
-import {api} from '../../services/api'
-
+import { api } from '../../services/api';
 
 export const EditUsers = () => {
   const nameRef = useRef();
-  const emailRef = useRef()
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  const [isAdmin, setIsAdmin] = useState(false); // estado controlado do checkbox
 
   const location = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const user = location.state?.user;
 
   useEffect(() => {
     if (user) {
-      nameRef.current.value = user.name;
-      emailRef.current.value = user.email;
-
+      if (nameRef.current) nameRef.current.value = user.name || "";
+      if (emailRef.current) emailRef.current.value = user.email || "";
+      if (passwordRef.current) passwordRef.current.value = "";
+      setIsAdmin(!!user.admin); // garante boolean
     }
   }, [user]);
 
-  const editTasks = async () => {
-    const taskData = {
+  const editUsers = async () => {
+    const userData = {
       name: nameRef.current.value,
-      email: emailRef.current.value
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+      admin: isAdmin
     };
 
     try {
-      await api.put(`https://tasks-ops-backend.vercel.app/api/edit-task/${task._id}`, taskData);
-      alert("Chamado alterado com sucesso!");
-      navigate('/task')
-
+      await api.put(`/edit-user/${user._id}`, userData);
+      alert("Usuário alterado com sucesso!");
+      navigate("/users");
     } catch (error) {
-      console.error("Erro ao editar chamado:", error);
-      alert("Erro ao editar chamado");
+      console.error("Erro ao editar usuário:", error);
+      alert("Erro ao editar usuário");
     }
+  };
+
+  const handleCheckboxChange = (e) => {
+    setIsAdmin(e.target.checked);
   };
 
   return (
@@ -48,8 +55,20 @@ export const EditUsers = () => {
         <label>Email:</label>
         <Input type="text" ref={emailRef} />
       </ContainerInput>
-      
-      <Button>Salvar</Button>
+      <ContainerInput>
+        <label>Senha:</label>
+        <Input type="password" ref={passwordRef} />
+      </ContainerInput>
+      <ContainerInput>
+        <label>Admin:</label>
+        <Input
+          type="checkbox"
+          checked={isAdmin}
+          onChange={handleCheckboxChange}
+        />
+      </ContainerInput>
+
+      <Button onClick={editUsers}>Salvar</Button>
     </Container>
   );
 };

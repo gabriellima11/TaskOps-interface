@@ -65,7 +65,6 @@ export const Login = () => {
                     </Body>
 
                     <Footer>
-                        <p>Ainda não tem um login? <a href="/register">Registre-se</a></p>
                         <Button type="submit">Entrar</Button>
                     </Footer>
                 </form>

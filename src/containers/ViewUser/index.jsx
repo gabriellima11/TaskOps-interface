@@ -1,8 +1,13 @@
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
-import { Container, Table, Th, Td, EditButton, Links } from "./styles";
+import { Container, Table, Th, Td, Links, Button } from "./styles";
+import { FaTrashAlt, FaPencilAlt } from "react-icons/fa";
+import { DeleteMenu } from "../../components/DeleteMenu";
+import { useNavigate } from "react-router-dom";
 
 export const ViewUsers = () => {
+  const navigate = useNavigate()
+
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -17,12 +22,36 @@ export const ViewUsers = () => {
     loadUsers();
   }, []);
 
-  const handleEdit = (id) => {
-    console.log("Editar usuário com ID:", id);
+  const [isDeleteMenuOpen, setIsDeleteMenuOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
+
+  const openDeleteMenu = (userId) => {
+    setUserToDelete(userId);
+    setIsDeleteMenuOpen(true);
   };
 
+  const confirmDelete = async () => {
+    if (userToDelete) {
+      await deleteUser(userToDelete);
+      setIsDeleteMenuOpen(false);
+      setUserToDelete(null);
+    }
+  };
+
+
+  const deleteUser = async (id) => {
+    try {
+      await api.delete(`http://localhost:3000/api/delete-user/${id}`);
+      alert("Chamado deletado com sucesso");
+      setUsers(prevUsers => prevUsers.filter(users => users._id !== id));
+    } catch (error) {
+      alert("Erro ao deletar o chamado");
+      console.log(error);
+    }
+  };
   return (
     <Container>
+      <Button onClick={() =>navigate("/register")}>Adicionar usuário</Button>
       <Table>
         <thead>
           <tr>
@@ -40,8 +69,17 @@ export const ViewUsers = () => {
               <Td>{item.admin ? "Sim" : "Não"}</Td>
               <Td>
                 <Links to={"/edit-users"} state={{ user: item }}>
-                  Editar
+                  <FaPencilAlt />
                 </Links>
+                <Links onClick={() => openDeleteMenu(item._id)}>
+                  <FaTrashAlt/>
+                </Links>
+                {isDeleteMenuOpen && (
+                  <DeleteMenu
+                    onConfirm={confirmDelete}
+                    onCancel={() => setIsDeleteMenuOpen(false)}
+                  />
+                )}
               </Td>
             </tr>
           ))}

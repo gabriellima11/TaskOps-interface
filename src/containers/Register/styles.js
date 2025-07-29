@@ -1,73 +1,58 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 20px;
     width: 100%;
     height: 100vh;
-`;
-
-export const Content = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    border: 1px solid #fff;
-    border-radius: 15px;
-    color: #fff;
-    background-color: #0593FC;
-    width: 500px;
-    height: 600px;
+    gap: 10px;
+`
 
-    form {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        gap: 20px;
-    }
-`;
+export const ContainerInput = styled.div`
+   display: flex;
+   flex-direction: column;
+   margin-top: 10px;
+`
 
-export const Header = styled.div`
-    text-align: center;
-`;
-
-export const Body = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 20px;
-    width: 100%;
-`;
-
-export const InputsDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-
-    span {
-        color: #ffdddd;
-        font-size: 0.85em;
-        margin-top: 5px;
-    }
-`;
+export const ContainerSelect = styled.div`
+   display: flex;
+   align-items: center;
+   gap:10px
+`
 
 export const Input = styled.input`
-    border: 1px solid #026cbdff;
-    border-radius: 10px;
-    outline: none;
-    padding: 10px 10px;
-    width: 100%;
-`;
+   border-radius: 10px;
+   border: 1px solid black;
+   padding: 5px 10px;
+`
 
-export const Footer = styled.div`
-    width: 100%;
-    text-align: center;
+export const TextArea = styled.textarea`
+   border-radius: 10px;
+   border: 1px solid black;
+   padding: 5px;
+   resize: none;
+`
 
-    p {
-        margin-bottom: 10px;
+export const Select = styled.select`
+   margin-top: 10px;
+   border-radius: 10px;
+   border: 1px solid black;
+   padding: 5px;
+   resize: none;
+   width: 12em;
+`
+
+export const Button = styled.button`
+   width: 12em;
+   padding: 10px;
+   background-color: #0593FC;
+   color: #ffffff;
+   border: none;
+   border-radius: 10px;
+   font-weight: 500;
+
+   &:hover{
+        background-color: #077cd6ff;
     }
-`;
+`

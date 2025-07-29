@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom"
 //Containers
 import { ViewUsers } from "../ViewUser"
 import { EditUsers } from "../EditUser"
+import {Register} from '../Register'
 
 //Styles
 import { Container } from "./styles"
@@ -16,6 +17,7 @@ export const Users = () =>{
         <Container>
             {pathname === pathsUser.User && <ViewUsers />}
             {pathname === pathsUser.EditUser && <EditUsers />}
+            {pathname === pathsUser.Register && <Register />}
         </Container>
     )
 }

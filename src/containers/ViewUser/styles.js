@@ -45,26 +45,22 @@ export const Td = styled.td`
   }
 `;
 
-export const EditButton = styled.button`
-  padding: 6px 12px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-
-  @media (max-width: 480px) {
-    padding: 4px 8px;
-    font-size: 12px;
-  }
-`
-
 export const Links = styled(Link)`
     text-decoration: none;
     color: #000;
+    margin-right: 10px;
+`
+
+export const Button = styled.button`
+    font-size: 17px;
+    color: #fff;
+    background-color: #0070c5ff;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+
+    &:hover{
+        background-color: #0064b1ff;
+    }
 `

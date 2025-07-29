@@ -7,4 +7,5 @@ export const pathsTask = {
 export const pathsUser = {
     User: '/users',
     EditUser: '/edit-users',
+    Register: '/register'
 }
