@@ -1,13 +1,14 @@
-import { Container, ContainerTask, Info, Button, IconsDiv, Links } from "./styles";
+import { Container, ContainerTask, Info, Button, IconsDiv, Links, PaginationContainer, PaginationButton, PageInfo } from "./styles";
 import { useState, useEffect } from "react";
 import { api } from '../../services/api';
 import { FaTrashAlt, FaPencilAlt } from "react-icons/fa";
-import {DeleteMenu} from '../../components/DeleteMenu'
+import { DeleteMenu } from '../../components/DeleteMenu';
 
 export const ViewTask = ({ filterCompany }) => {
   const [task, setTask] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const tasksPerPage = 5;
 
-  //Menu delete
   const [isDeleteMenuOpen, setIsDeleteMenuOpen] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
 
@@ -52,37 +53,51 @@ export const ViewTask = ({ filterCompany }) => {
       ? task.filter(t => t.company === filterCompany)
       : task;
 
+  const indexOfLastTask = currentPage * tasksPerPage;
+  const indexOfFirstTask = indexOfLastTask - tasksPerPage;
+  const currentTasks = filteredTasks.slice(indexOfFirstTask, indexOfLastTask);
+
+  const totalPages = Math.ceil(filteredTasks.length / tasksPerPage);
+
   return (
     <Container>
-      {
-        filteredTasks.map((item) => (
-          <ContainerTask key={item._id}>
-            <Info>
-              <p>Título: {item.title}</p>
-              <p>Link do Chamado: {item.helpdesk}</p>
-              <p>Descrição: {item.description}</p>
-              <p>Analista: {item.author}</p>
-              <p>Empresa: {item.company}</p>
-              <p>Prioridade: {item.priority}</p>
-              <p>Status: {item.status}</p>
-            </Info>
-            <IconsDiv>
+      {currentTasks.map((item) => (
+        <ContainerTask key={item._id}>
+          <Info>
+            <p>Título: {item.title}</p>
+            <p>Link do Chamado: {item.helpdesk}</p>
+            <p>Descrição: {item.description}</p>
+            <p>Analista: {item.author}</p>
+            <p>Empresa: {item.company}</p>
+            <p>Prioridade: {item.priority}</p>
+            <p>Status: {item.status}</p>
+          </Info>
+          <IconsDiv>
+            <Button onClick={() => openDeleteMenu(item._id)}>
+              <FaTrashAlt size={20} />
+            </Button>
+            {isDeleteMenuOpen && (
+              <DeleteMenu
+                onConfirm={confirmDelete}
+                onCancel={() => setIsDeleteMenuOpen(false)}
+              />
+            )}
+            <Links to={"/edit-task"} state={{ user: item }}>
+              <FaPencilAlt size={20} />
+            </Links>
+          </IconsDiv>
+        </ContainerTask>
+      ))}
 
-              <Button onClick={() => openDeleteMenu(item._id)}>
-                <FaTrashAlt size={20} />
-              </Button>
-              {isDeleteMenuOpen && (
-                <DeleteMenu
-                  onConfirm={confirmDelete}
-                  onCancel={() => setIsDeleteMenuOpen(false)}
-                />
-              )}
-              
-              <Links to={"/edit-task"} state={{ user: item }}><FaPencilAlt size={20} /></Links>
-            </IconsDiv>
-          </ContainerTask>
-        ))
-      }
+      <PaginationContainer>
+        <PaginationButton onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
+          Anterior
+        </PaginationButton>
+        <PageInfo>Página {currentPage} de {totalPages}</PageInfo>
+        <PaginationButton onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
+          Próxima
+        </PaginationButton>
+      </PaginationContainer>
     </Container>
   );
 };

@@ -30,7 +30,6 @@ export const CreateTask = () => {
       status: statusRef.current.value
     };
     try {
-      console.log(taskData)
       await api.post("https://tasks-ops-backend.vercel.app/api/create-task", taskData);
       alert("Chamado criado com sucesso!");
 
