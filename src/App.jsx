@@ -28,6 +28,20 @@ const AdminRoute = ({ children }) => {
   return children;
 };
 
+const PrivateRoute = ({ children }) => {
+  const { userInfo: { user }, loading } = useUser();
+
+  if (loading) {
+    return <div>Carregando...</div>; // pode colocar um spinner
+  }
+
+  if (!user) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
+};
+
 
 function AppContent() {
   const [selectedCompany, setSelectedCompany] = useState(null);
@@ -50,10 +64,11 @@ function AppContent() {
               </AdminRoute>
             }
           />
+          
           <Route
             path="/*"
             element={
-                <Tasks filterCompany={selectedCompany} />
+                <PrivateRoute><Tasks filterCompany={selectedCompany} /></PrivateRoute>
             }
           />
           <Route

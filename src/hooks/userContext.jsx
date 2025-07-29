@@ -4,6 +4,7 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const putUserData = (data) => {
     setUserInfo(data);
@@ -13,6 +14,7 @@ export const UserProvider = ({ children }) => {
   const logout = () => {
     setUserInfo({});
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
   };
 
   useEffect(() => {
@@ -20,10 +22,11 @@ export const UserProvider = ({ children }) => {
     if (userInfoLocalStorage) {
       setUserInfo(JSON.parse(userInfoLocalStorage));
     }
+    setLoading(false); // terminou de carregar do localStorage
   }, []);
 
   return (
-    <UserContext.Provider value={{ userInfo, putUserData, logout }}>
+    <UserContext.Provider value={{ userInfo, putUserData, logout, loading }}>
       {children}
     </UserContext.Provider>
   );
