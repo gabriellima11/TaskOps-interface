@@ -46,7 +46,7 @@ export const EditTask = () => {
     };
 
     try {
-      await api.put(`https://tasks-ops-backend.vercel.app/api/edit-task/${task._id}`, taskData);
+      await api.put(`/edit-task/${task._id}`, taskData);
       alert("Chamado alterado com sucesso!");
       navigate('/task')
 

@@ -82,7 +82,7 @@ export const ViewTask = ({ filterCompany }) => {
                 onCancel={() => setIsDeleteMenuOpen(false)}
               />
             )}
-            <Links to={"/edit-task"} state={{ user: item }}>
+            <Links to={"/edit-task"} state={{ task: item }}>
               <FaPencilAlt size={20} />
             </Links>
           </IconsDiv>
