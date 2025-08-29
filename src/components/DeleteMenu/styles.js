@@ -14,7 +14,7 @@ export const Container = styled.div`
 `
 
 export const DivConfirmDelete = styled.div`
-      background-color: #fff;
+      background-color: #111827;
       padding: 20px;
       border-radius: 8px;
       text-align: center;

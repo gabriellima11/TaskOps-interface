@@ -8,6 +8,11 @@ const globalStyles = createGlobalStyle`
         outline: none;
         font-family: 'Roboto', sans-serif;
     }
+
+    body{
+        background-color: #111827;
+        color: #F9FAFB;
+    }
     
     button{
         cursor: pointer;

@@ -14,10 +14,9 @@ export const Content = styled.div`
     justify-content: center;
     align-items: center;
     padding: 20px;
-    border: 1px solid #fff;
     border-radius: 15px;
     color: #fff;
-    background-color: #0593FC;
+    background-color: #1F2937;
     width: 500px;
     height: 600px;
 
@@ -56,7 +55,7 @@ export const InputsDiv = styled.div`
 `;
 
 export const Input = styled.input`
-    border: 1px solid #026cbdff;
+    border: 1px solid #171f2bff;
     border-radius: 10px;
     outline: none;
     padding: 10px 10px;

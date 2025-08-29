@@ -12,7 +12,7 @@ export const Table = styled.table`
   width: 100em;
   min-width: 600px;
   border-collapse: collapse;
-  background: #fff;
+  background: #1F2937;
   border-radius: 8px;
   overflow: hidden;
 
@@ -25,7 +25,7 @@ export const Th = styled.th`
   border-bottom: 2px solid #ccc;
   text-align: left;
   padding: 12px;
-  background-color: #f7f7f7;
+  background-color: #161d27ff;
   font-size: 14px;
 
   @media (max-width: 480px) {
@@ -47,7 +47,7 @@ export const Td = styled.td`
 
 export const Links = styled(Link)`
     text-decoration: none;
-    color: #000;
+    color: #fff;
     margin-right: 10px;
 `
 

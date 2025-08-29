@@ -1,4 +1,4 @@
-import { Container, ContainerTask, Info, Button, IconsDiv, Links, PaginationContainer, PaginationButton, PageInfo } from "./styles";
+import { Container, ContainerTask, Info, Button, IconsDiv, Links, PaginationContainer, PaginationButton, PageInfo, Span, Title } from "./styles";
 import { useState, useEffect } from "react";
 import { api } from '../../services/api';
 import { FaTrashAlt, FaPencilAlt } from "react-icons/fa";
@@ -64,13 +64,13 @@ export const ViewTask = ({ filterCompany }) => {
       {currentTasks.map((item) => (
         <ContainerTask key={item._id}>
           <Info>
-            <p>Título: {item.title}</p>
-            <p>Link do Chamado: {item.helpdesk}</p>
-            <p>Descrição: {item.description}</p>
-            <p>Analista: {item.author}</p>
-            <p>Empresa: {item.company}</p>
-            <p>Prioridade: {item.priority}</p>
-            <p>Status: {item.status}</p>
+            <Title>Título: {item.title}</Title>
+            <p><Span>Link do Chamado: </Span>{item.helpdesk}</p>
+            <p><Span>Descrição: </Span>{item.description}</p>
+            <p><Span>Analista: </Span> {item.author}</p>
+            <p><Span>Empresa: </Span> {item.company}</p>
+            <p><Span>Prioridade: </Span> {item.priority}</p>
+            <p><Span>Status: </Span> {item.status}</p>
           </Info>
           <IconsDiv>
             <Button onClick={() => openDeleteMenu(item._id)}>

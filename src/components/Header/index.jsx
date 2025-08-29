@@ -2,15 +2,27 @@ import { Link, Container, Image, ContainerLinks, Logout, DivInfo } from "./style
 import companies from "../../constants/companies";
 import Logo from '../../assets/logo.png';
 import { useUser } from "../../hooks/userContext";
+import { useState, useEffect } from "react";
+import { api } from "../../services/api";
 
 
 export const Header = ({ onSelectCompany }) => {
+  const [company, setCompany] = useState([])
+
   const {logout} = useUser()
   const {userInfo:{user}} = useUser()
 
   const handleClick = (company) => {
     onSelectCompany(company === "Todos" ? null : company);
   };
+
+  useEffect(()=>{
+    async function loadCompanies(){
+      const {data} = await api.get("/company")
+      setCompany(data)
+    }
+    loadCompanies()
+  },[])
 
   return (
     <Container>

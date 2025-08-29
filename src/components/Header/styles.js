@@ -39,7 +39,6 @@ export const Link = styled.a`
     transition: all 0.3s ease;
 
     &:hover{
-        border: 1px solid white;
         background-color: #0593FC;
         color: white;
     }
