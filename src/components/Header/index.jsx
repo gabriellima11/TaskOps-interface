@@ -1,6 +1,6 @@
 import { Link, Container, Image, ContainerLinks, Logout, DivInfo } from "./styles";
 import companies from "../../constants/companies";
-import Logo from '../../assets/logo.png';
+import Logo from '../../assets/logo_south-white.png';
 import { useUser } from "../../hooks/userContext";
 import { useState, useEffect } from "react";
 import { api } from "../../services/api";

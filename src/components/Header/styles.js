@@ -50,7 +50,7 @@ export const Link = styled.a`
 `
 
 export const Image = styled.img`
-    width: 70px;
+    width: 120px;
 
     @media (max-width: 480px) {
         width: 50px;
