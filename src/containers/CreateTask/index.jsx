@@ -3,11 +3,11 @@ import { Container, Input, ContainerInput, TextArea, Select, Button, ContainerSe
 
 //Constant
 import author from '../../constants/author'
-import companies from "../../constants/companies";
+import { getCompanies } from "../../constants/companies";
 import status from '../../constants/status'
 import priorities from "../../constants/priority";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { api } from '../../services/api';
 
 export const CreateTask = () => {
@@ -20,6 +20,15 @@ export const CreateTask = () => {
   const statusRef = useRef();
 
   const [loadingFormalize, setLoadingFormalize] = useState(false);
+  const [companies, setCompanies] = useState([]);
+
+  useEffect(() => {
+      async function loadCompanies() {
+        const data = await getCompanies();
+        setCompanies(data);
+      }
+      loadCompanies();
+    }, []);
 
   const createTasks = async () => {
     const taskData = {
@@ -104,7 +113,7 @@ export const CreateTask = () => {
         <label>Empresa:</label>
         <Select ref={companyRef}>
           {companies.map((item) => (
-            <option value={item.value} key={item.value}>
+            <option value={item.title} key={item.title}>
               {item.title}
             </option>
           ))}

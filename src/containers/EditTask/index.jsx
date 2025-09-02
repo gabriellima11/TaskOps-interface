@@ -1,15 +1,26 @@
 import { Container, Input, ContainerInput, TextArea, Select, Button, ContainerSelect } from "./styles";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import {api} from '../../services/api'
+import { api } from '../../services/api'
 
 import authors from "../../constants/author";
-import companies from "../../constants/companies";
+import { getCompanies } from "../../constants/companies";
 import status from '../../constants/status'
 import priority from "../../constants/priority";
 
 export const EditTask = () => {
+
+  const [companies, setCompanies] = useState([]);
+
+  useEffect(() => {
+    async function loadCompanies() {
+      const data = await getCompanies();
+      setCompanies(data);
+    }
+    loadCompanies();
+  }, []);
+
   const titleRef = useRef();
   const descriptionRef = useRef();
   const authorRef = useRef();
@@ -32,7 +43,7 @@ export const EditTask = () => {
       priorityRef.current.value = task.priority;
       statusRef.current.value = task.status
     }
-  }, [task]);
+  }, [task, companies]);
 
   const editTasks = async () => {
     const taskData = {
@@ -55,6 +66,8 @@ export const EditTask = () => {
       alert("Erro ao editar chamado");
     }
   };
+
+
 
   return (
     <Container>
@@ -84,7 +97,7 @@ export const EditTask = () => {
         <label>Empresa:</label>
         <Select ref={companyRef}>
           {companies.map((item) => (
-            <option value={item.value} key={item.value}>
+            <option value={item.title} key={item.title}>
               {item.title}
             </option>
           ))}
