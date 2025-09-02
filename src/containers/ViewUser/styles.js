@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export const Container = styled.div`
   width: 100%;
-  overflow-x: auto; /* permite rolagem horizontal em telas pequenas */
+  overflow-x: auto;
   padding: 16px;
   box-sizing: border-box;
 `;

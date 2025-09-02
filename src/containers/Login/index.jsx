@@ -5,6 +5,7 @@ import { api } from '../../services/api';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../hooks/userContext";
+import Logo from '../../assets/logo_south-white.png'
 
 export const Login = () => {
     const navigate = useNavigate();
@@ -38,6 +39,7 @@ export const Login = () => {
 
     return (
         <Container>
+            <img src={Logo} alt="Logo" width={180}/>
             <Content>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Header>

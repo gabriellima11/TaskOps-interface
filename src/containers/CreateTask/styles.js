@@ -12,6 +12,10 @@ export const Container = styled.div`
 export const ContainerInput = styled.div`
    display: flex;
    flex-direction: column;
+
+   .formalize{
+      margin-top: 10px;
+   }
 `
 
 export const ContainerSelect = styled.div`

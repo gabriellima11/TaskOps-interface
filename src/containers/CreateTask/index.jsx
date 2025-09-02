@@ -7,7 +7,7 @@ import companies from "../../constants/companies";
 import status from '../../constants/status'
 import priorities from "../../constants/priority";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { api } from '../../services/api';
 
 export const CreateTask = () => {
@@ -18,6 +18,8 @@ export const CreateTask = () => {
   const helpdeskRef = useRef();
   const priorityRef = useRef();
   const statusRef = useRef();
+
+  const [loadingFormalize, setLoadingFormalize] = useState(false);
 
   const createTasks = async () => {
     const taskData = {
@@ -30,10 +32,10 @@ export const CreateTask = () => {
       status: statusRef.current.value
     };
     try {
-      await api.post("https://tasks-ops-backend.vercel.app/api/create-task", taskData);
+      await api.post("/create-task", taskData);
       alert("Chamado criado com sucesso!");
 
-      
+      // Limpar campos
       titleRef.current.value = "";
       helpdeskRef.current.value = "";
       descriptionRef.current.value = "";
@@ -47,6 +49,27 @@ export const CreateTask = () => {
       alert("Erro ao criar chamado");
     }
   };
+
+  const handleFormalize = async () => {
+  if (!descriptionRef.current.value.trim()) {
+    alert("Digite uma descrição antes de formalizar!");
+    return;
+  }
+
+  setLoadingFormalize(true);
+  try {
+    const response = await api.post("/formalize", {
+      text: descriptionRef.current.value
+    });
+
+    descriptionRef.current.value = response.data.formalized || response.data.text || "";
+  } catch (error) {
+    console.error("Erro ao formalizar texto:", error);
+    alert("Erro ao formalizar texto");
+  } finally {
+    setLoadingFormalize(false);
+  }
+};
 
   return (
     <Container>
@@ -63,6 +86,9 @@ export const CreateTask = () => {
       <ContainerInput>
         <label>Descrição:</label>
         <TextArea ref={descriptionRef} />
+        <Button className="formalize" onClick={handleFormalize} disabled={loadingFormalize}>
+          {loadingFormalize ? "Formalizando..." : "Formalizar"}
+        </Button>
       </ContainerInput>
 
       <ContainerSelect>
@@ -102,6 +128,7 @@ export const CreateTask = () => {
           ))}
         </Select>
       </ContainerSelect>
+      
       <Button onClick={createTasks}>Salvar</Button>
     </Container>
   );
