@@ -18,6 +18,7 @@ import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 
 // Hooks
 import { UserProvider, useUser } from './hooks/userContext';
+import { CreateCompany } from './containers/CreateCompany';
 
 // Rotas protegidas
 const AdminRoute = ({ children }) => {
@@ -84,6 +85,14 @@ function AppContent() {
             element={
               <AdminRoute>
                 <EditUsers />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/companies"
+            element={
+              <AdminRoute>
+                <CreateCompany />
               </AdminRoute>
             }
           />

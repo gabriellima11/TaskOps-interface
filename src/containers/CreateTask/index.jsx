@@ -4,6 +4,7 @@ import { Container, Input, ContainerInput, TextArea, Select, Button, ContainerSe
 //Constant
 import author from '../../constants/author'
 import { getCompanies } from "../../constants/companies";
+import { getAuthors } from "../../constants/author";
 import status from '../../constants/status'
 import priorities from "../../constants/priority";
 
@@ -21,6 +22,7 @@ export const CreateTask = () => {
 
   const [loadingFormalize, setLoadingFormalize] = useState(false);
   const [companies, setCompanies] = useState([]);
+  const [authors, setAuthors] = useState([]);
 
   useEffect(() => {
       async function loadCompanies() {
@@ -28,6 +30,12 @@ export const CreateTask = () => {
         setCompanies(data);
       }
       loadCompanies();
+
+      async function loadAuthors() {
+        const data = await getAuthors();
+        setAuthors(data);
+      }
+      loadAuthors();
     }, []);
 
   const createTasks = async () => {
@@ -103,9 +111,9 @@ export const CreateTask = () => {
       <ContainerSelect>
         <label>Analista:</label>
           <Select ref={authorRef}>
-            {author.map((item) => (
-              <option value={item} key={item}>
-                {item}
+            {authors.map((item) => (
+              <option value={item.name} key={item.name}>
+                {item.name}
               </option>
             ))}
           </Select>

@@ -21,7 +21,7 @@ export const SideMenu = () => {
 
             {isOpen && (
               <DivAdmin>
-                <ListLink>Criar empresa</ListLink>
+                <ListLink to={"/companies"}>Empresas</ListLink>
                 <ListLink to={"/users"}>Usuários</ListLink>
               </DivAdmin>
             )}

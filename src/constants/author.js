@@ -1,3 +1,17 @@
-const authors = ["-", "João Nazarito", "Cleber Lucas", "Gabriel Lima", "Matheus Meneghini", "Eliel Barros", "Bráulio Neto", "Matheus Vieira"]
+import { api } from "../services/api";
 
-export default authors
+let authorCache = [
+];
+
+export const getAuthors = async () => {
+  try {
+    const { data } = await api.get("/users");
+    authorCache = [...data];
+    return authorCache;
+  } catch (error) {
+    console.error("Erro ao buscar empresas:", error);
+    return authorCache;
+  }
+};
+
+export default authorCache;
